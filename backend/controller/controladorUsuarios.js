@@ -1,5 +1,6 @@
 import Usuario from "../modelos/Usuario.js";
 import generarId from "../helpers/generarId.js";
+import generarJWT from "../helpers/generarJWT.js";
 
 const obtenerUsuarios = (req, res) => {
     res.json({ msg: "Hola Amigos" });
@@ -36,7 +37,8 @@ const autenticar = async (req, res) => {
         res.json({
             _id: usuario._id,
             nombre: usuario.nombre,
-            email: usuario.email
+            email: usuario.email,
+            token: generarJWT(usuario._id)
         });
 
     }
@@ -45,5 +47,8 @@ const autenticar = async (req, res) => {
         res.status(403).json({msg: error.message});
     }
 }
+const confirmar = async (req, res) => {
 
-export { obtenerUsuarios, registrar, autenticar }
+}
+
+export { obtenerUsuarios, registrar, autenticar, confirmar }
