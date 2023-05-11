@@ -48,7 +48,7 @@ const autenticar = async (req, res) => {
     }
 }
 const confirmar = async (req, res) => {
-
+    
 }
 
 export { obtenerUsuarios, registrar, autenticar, confirmar }
