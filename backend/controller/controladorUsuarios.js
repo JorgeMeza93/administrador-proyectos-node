@@ -54,7 +54,6 @@ const confirmar = async (req, res) => {
         const error = new Error("Token no válido");
         return res.status(403).json({ msg: error.message });
     }
-    console.log("Encontrado");
     try {
         usuarioConfirmar.confirmado = true;
         usuarioConfirmar.token = "";
@@ -65,5 +64,21 @@ const confirmar = async (req, res) => {
         console.log(error);
     }
 }
+const olvidePassword = async (req, res) => {
+    const { email } = req.body;
+    const usuario = await Usuario.findOne({ email });
+    if(!usuario){
+        const error = new Error("El Usuario no existe");
+        return res.status(404).json({ mag: error.message });
+    }
+    try {
+        usuario.token = generarId();
+        await usuario.save();
+        res.json({ msg: "Hemos enviado un email con las instrucciones para que recuperes tu acceso" });
+    } catch (error) {
+        console.log(error);
+    }
 
-export { obtenerUsuarios, registrar, autenticar, confirmar }
+}
+
+export { obtenerUsuarios, registrar, autenticar, confirmar, olvidePassword }
